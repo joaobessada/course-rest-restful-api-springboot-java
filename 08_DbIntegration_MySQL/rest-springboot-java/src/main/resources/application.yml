@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/rest_with_springboot_course?useTimezone=true&serverTimezone=UTC
     username: root
-    password: 175269 
+    password: 
    
   jpa:
     hibernate:
