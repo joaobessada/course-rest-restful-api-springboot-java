@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bessada.data.vo.v1.PersonVO;
-import com.bessada.data.vo.v2.PersonVOv2;
 import com.bessada.exceptions.ResourceNotFoundException;
 import com.bessada.mapper.DozerMapper;
-import com.bessada.mapper.custom.PersonMapper;
 import com.bessada.model.Person;
 import com.bessada.repository.PersonRepository;
 
@@ -20,9 +18,6 @@ public class PersonServices {
 	
 	@Autowired
 	PersonRepository repository;
-	
-	@Autowired
-	PersonMapper mapper;
 	
 	public List<PersonVO> findAll() {
 		logger.info("Finding all people");
@@ -43,13 +38,6 @@ public class PersonServices {
 		var entity = DozerMapper.parseObject(person, Person.class);
 		var vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
 		
-		return vo;
-	}
-	
-	public PersonVOv2 createV2(PersonVOv2 person) {
-		logger.info("Creating one person v2");
-		var entity = mapper.convertVoToEntity(person);
-		var vo = mapper.convertEntityToVo(repository.save(entity));
 		return vo;
 	}
 	
