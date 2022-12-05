@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.bessada.data.vo.v1.PersonVO;
 import com.bessada.exceptions.ResourceNotFoundException;
+import com.bessada.mapper.DozerMapper;
+import com.bessada.model.Person;
 import com.bessada.repository.PersonRepository;
 
 @Service
@@ -19,26 +21,30 @@ public class PersonServices {
 	
 	public List<PersonVO> findAll() {
 		logger.info("Finding all people");
-		return repository.findAll();
+		return DozerMapper.parseListObjects(repository.findAll(), PersonVO.class);
+		
 	}
 	
 	
 	public PersonVO findById(Long id)  {
 		logger.info("Finding one person"); // mensagem que será impressa no logger 
 
-		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+		var entity =  repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+		return DozerMapper.parseObject(entity, PersonVO.class);
 	}
 	
 	public PersonVO create(PersonVO person) {
 		logger.info("Creating one person");
+		var entity = DozerMapper.parseObject(person, Person.class);
+		var vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
 		
-		return repository.save(person);
+		return vo;
 	}
 	
 	public PersonVO update(PersonVO person) {
 		logger.info("Updating one person");
 		
-		PersonVO entity = repository.findById(person.getId())
+		var entity = repository.findById(person.getId())
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 		
 		entity.setFirstName(person.getFirstName());
@@ -46,13 +52,14 @@ public class PersonServices {
 		entity.setAddress(person.getAddress());
 		entity.setGender(person.getGender());
 		
-		return repository.save(person);
+		var vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+		return vo;
 	}
 	
 	public void delete(Long id) {
 		logger.info("Deleting one person");
 		
-		PersonVO entity = repository.findById(id)
+		var entity = repository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 		
 		repository.delete(entity);
