@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.bessada.PersonController;
 import com.bessada.data.vo.v1.PersonVO;
 import com.bessada.data.vo.v2.PersonVOv2;
+import com.bessada.exceptions.RequiredObjectIsNullException;
 import com.bessada.exceptions.ResourceNotFoundException;
 import com.bessada.mapper.DozerMapper;
 import com.bessada.mapper.custom.PersonMapper;
@@ -42,7 +43,8 @@ public class PersonServices {
 		return persons;
 	}
 
-	public PersonVO findById(Long id) throws Exception {
+	public PersonVO findById(Long id) throws Exception  {
+		if(id == null) throw new RequiredObjectIsNullException();
 		
 		logger.info("Finding one person!");
 		
@@ -53,7 +55,9 @@ public class PersonServices {
 		return vo;
 	}
 	
-	public PersonVO create(PersonVO person) throws Exception {
+	public PersonVO create(PersonVO person) throws Exception  {
+		
+		if(person == null) throw new RequiredObjectIsNullException();
 		
 		logger.info("Creating one person!");
 		var entity = DozerMapper.parseObject(person, Person.class);
@@ -62,7 +66,9 @@ public class PersonServices {
 		return vo;
 	}
 	
-	public PersonVO update(PersonVO person) throws Exception {
+	public PersonVO update(PersonVO person) throws Exception  {
+		
+		if(person == null) throw new RequiredObjectIsNullException();
 		
 		logger.info("Updating one person!");
 		
