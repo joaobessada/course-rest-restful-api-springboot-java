@@ -36,8 +36,8 @@ public class PersonController {
 	
 	@GetMapping(value = "/{id}",produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
 	@Operation(
-			summary = "Finds all People", 
-			description = "Finds all People", 
+			summary = "Finds a person", 
+			description = "Finds a person", 
 			tags = {"People"}, 
 			responses = {
 					@ApiResponse(description = "Success", responseCode = "200", content = {@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = PersonVO.class)))}),
@@ -57,8 +57,8 @@ public class PersonController {
 	
 	@GetMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
 	@Operation(
-			summary = "Finds a person", 
-			description = "Finds a person", 
+			summary = "Finds all people", 
+			description = "Finds all people", 
 			tags = {"People"}, 
 			responses = {
 					@ApiResponse(description = "Success", responseCode = "200", content = @Content(schema = @Schema(implementation = PersonVO.class))),

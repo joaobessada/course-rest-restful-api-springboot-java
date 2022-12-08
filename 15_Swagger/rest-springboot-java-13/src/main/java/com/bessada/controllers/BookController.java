@@ -36,8 +36,8 @@ public class BookController {
 	
 	@GetMapping(value = "/{id}",produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
 	@Operation(
-			summary = "Finds all Book", 
-			description = "Finds all Book", 
+			summary = "Finds a book", 
+			description = "Finds a book", 
 			tags = {"Book"}, 
 			responses = {
 					@ApiResponse(description = "Success", responseCode = "200", content = {@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = BookVO.class)))}),
@@ -57,8 +57,8 @@ public class BookController {
 	
 	@GetMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
 	@Operation(
-			summary = "Finds a book", 
-			description = "Finds a book", 
+			summary = "Finds all books", 
+			description = "Finds all books", 
 			tags = {"Book"}, 
 			responses = {
 					@ApiResponse(description = "Success", responseCode = "200", content = @Content(schema = @Schema(implementation = BookVO.class))),
